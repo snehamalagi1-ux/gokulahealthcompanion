@@ -77,10 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Track milk yield, vaccinations and breeding cycles for your cattle. A digital health passport for small-scale dairy farmers." },
       { name: "author", content: "Gokula-Health" },
       { property: "og:title", content: "Gokula-Health — Digital Health Card for Cattle" },
-      { property: "og:description", content: "Track milk yield, vaccinations and breeding cycles for your cattle." },
+      { property: "og:description", content: "Track milk yield, vaccinations and breeding cycles for your cattle. A digital health passport for small-scale dairy farmers." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Gokula-Health — Digital Health Card for Cattle" },
+      { name: "twitter:description", content: "Track milk yield, vaccinations and breeding cycles for your cattle. A digital health passport for small-scale dairy farmers." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/56f0b97d-5668-40a0-a7d1-4074d8357172/id-preview-b0bedc19--a46ea998-0f2d-447c-afdd-09ad6339fff2.lovable.app-1779155002881.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/56f0b97d-5668-40a0-a7d1-4074d8357172/id-preview-b0bedc19--a46ea998-0f2d-447c-afdd-09ad6339fff2.lovable.app-1779155002881.png" },
     ],
     links: [
       {
