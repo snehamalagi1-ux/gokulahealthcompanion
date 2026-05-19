@@ -9,38 +9,105 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VaccinationsRouteImport } from './routes/vaccinations'
+import { Route as MilkRouteImport } from './routes/milk'
+import { Route as AddCattleRouteImport } from './routes/add-cattle'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CattleIdRouteImport } from './routes/cattle.$id'
 
+const VaccinationsRoute = VaccinationsRouteImport.update({
+  id: '/vaccinations',
+  path: '/vaccinations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MilkRoute = MilkRouteImport.update({
+  id: '/milk',
+  path: '/milk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddCattleRoute = AddCattleRouteImport.update({
+  id: '/add-cattle',
+  path: '/add-cattle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CattleIdRoute = CattleIdRouteImport.update({
+  id: '/cattle/$id',
+  path: '/cattle/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add-cattle': typeof AddCattleRoute
+  '/milk': typeof MilkRoute
+  '/vaccinations': typeof VaccinationsRoute
+  '/cattle/$id': typeof CattleIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add-cattle': typeof AddCattleRoute
+  '/milk': typeof MilkRoute
+  '/vaccinations': typeof VaccinationsRoute
+  '/cattle/$id': typeof CattleIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add-cattle': typeof AddCattleRoute
+  '/milk': typeof MilkRoute
+  '/vaccinations': typeof VaccinationsRoute
+  '/cattle/$id': typeof CattleIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/add-cattle' | '/milk' | '/vaccinations' | '/cattle/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/add-cattle' | '/milk' | '/vaccinations' | '/cattle/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/add-cattle'
+    | '/milk'
+    | '/vaccinations'
+    | '/cattle/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddCattleRoute: typeof AddCattleRoute
+  MilkRoute: typeof MilkRoute
+  VaccinationsRoute: typeof VaccinationsRoute
+  CattleIdRoute: typeof CattleIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vaccinations': {
+      id: '/vaccinations'
+      path: '/vaccinations'
+      fullPath: '/vaccinations'
+      preLoaderRoute: typeof VaccinationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/milk': {
+      id: '/milk'
+      path: '/milk'
+      fullPath: '/milk'
+      preLoaderRoute: typeof MilkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-cattle': {
+      id: '/add-cattle'
+      path: '/add-cattle'
+      fullPath: '/add-cattle'
+      preLoaderRoute: typeof AddCattleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +115,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cattle/$id': {
+      id: '/cattle/$id'
+      path: '/cattle/$id'
+      fullPath: '/cattle/$id'
+      preLoaderRoute: typeof CattleIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddCattleRoute: AddCattleRoute,
+  MilkRoute: MilkRoute,
+  VaccinationsRoute: VaccinationsRoute,
+  CattleIdRoute: CattleIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
